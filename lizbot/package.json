@@ -1,0 +1,33 @@
+{
+  "name": "ts-playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/main/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "setup": "npm i && rm -fr dist && tsc",
+    "start": "node dist/main/index.js",
+    "test": "tape \"dist/test/**/*.js\"",
+    "startdev": "nodemon --watch src --watch package.json -e ts,json -q -x 'rm -fr dist && echo \"\\n============\\nCOMPILING...\\n============\\n\\n\" && tsc || return 0 && node dist/main/index.js'",
+    "testdev": "nodemon --watch src --watch package.json -e ts,json -q -x 'rm -fr dist && echo \"\\n============\\nCOMPILING...\\n============\\n\\n\" && tsc || return 0 && tape \"dist/test/**/*.js\"'"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/amqplib": "^0.5.1",
+    "@types/config": "0.0.32",
+    "@types/node": "^7.0.5",
+    "@types/seneca": "^2.1.5",
+    "@types/tape": "^4.2.29",
+    "nodemon": "latest",
+    "tape": "^4.6.3",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "amqplib": "^0.5.1",
+    "config": "^1.25.1",
+    "seneca": "^3.3.0"
+  }
+}

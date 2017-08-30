@@ -1,0 +1,20 @@
+{
+  "broadcast": {
+    "uri": "amqp://repositive:repositive@broadcast",
+    "exchange": "crud"
+  },
+  "vault": {
+    "transport": "transport",
+    "client": {
+      "type": "http",
+      "host": "vault",
+      "port": "10101"
+    }
+  },
+  "discover_url": "http://localhost:4200",
+  "slack": {
+    "token": "xoxb-66080951191-OOldZUAlCGCNG7YAIhbgBOXp",
+    "channel": "tests",
+    "bot_name": "Liz"
+  }
+}

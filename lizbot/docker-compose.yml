@@ -1,0 +1,36 @@
+version: '3'
+services:
+  lizbot:
+    command: /bin/sh -c "npm i && npm run startdev"
+    image: node
+    working_dir: /opt
+    ports:
+      - 7777:7777
+    networks:
+      - rabbitmq
+      - lizbot
+    volumes:
+     - .:/opt
+    environment:
+      TERM: dumb
+  # test:
+  #   command: /bin/sh -c "npm i && npm run testdev"
+  #   image: node
+  #   working_dir: /opt
+  #   volumes:
+  #    - .:/opt
+  #   environment:
+  #     TERM: dumb
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - 8080:15672
+    environment:
+      RABBITMQ_DEFAULT_PASS: repositive
+      RABBITMQ_DEFAULT_USER: repositive
+    networks:
+      - rabbitmq
+
+networks:
+  lizbot:
+  rabbitmq:

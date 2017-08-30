@@ -1,0 +1,7 @@
+{
+  "server_port": "7777",
+  "rabbitmq": {
+    "uri": "amqp://repositive:repositive@rabbitmq",
+    "exchange": "slack"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "broadcast": {
+    "uri": "BROADCAST_URI",
+    "exchange": "BROADCAST_EXCHANGE"
+  },
+  "vault": {
+    "transport": "VAULT_TRANSPORT",
+    "client": {
+      "type": "VAULT_TYPE",
+      "host": "VAULT_HOST",
+      "port": "VAULT_PORT"
+    }
+  },
+  "discover_url": "DISCOVER_URL",
+  "slack": {
+    "token": "SLACK_TOKEN",
+    "channel": "SLACK_CHANNEL",
+    "bot_name": "SLACK_BOTNAME"
+  }
+}

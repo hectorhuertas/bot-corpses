@@ -1,0 +1,30 @@
+version: '2'
+services:
+  lizbot:
+    command: /bin/sh -c "npm i && npm run startdev"
+    image: node
+    working_dir: /opt
+    volumes:
+     - .:/opt
+    environment:
+      TERM: dumb
+    networks:
+      - vault
+      - broadcast
+
+  test:
+    command: /bin/sh -c "npm i && npm run testdev"
+    image: node
+    working_dir: /opt
+    volumes:
+     - .:/opt
+    environment:
+      TERM: dumb
+
+networks:
+  vault:
+    external:
+      name: vault_service
+  broadcast:
+    external:
+      name: vault_broadcast

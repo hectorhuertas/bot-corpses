@@ -1,0 +1,38 @@
+machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+    - curl -sSL https://github.com/rancher/cli/releases/download/v0.4.1/rancher-linux-amd64-v0.4.1.tar.gz > rancher.tar.gz
+    - tar xf rancher.tar.gz && sudo mv rancher-v0.4.1/rancher /usr/bin/rancher
+
+    - curl -sSL https://github.com/rancher/rancher-compose/releases/download/v0.12.2-rc1/rancher-compose-linux-amd64-v0.12.2-rc1.tar.gz > rancher-compose.tar.gz
+    - tar -xf rancher-compose.tar.gz && sudo mv rancher-compose-v0.12.2-rc1/rancher-compose /usr/bin/rancher-compose
+  node:
+    version: 6.4.0
+  services:
+    - docker
+
+dependencies:
+  override:
+    - pip install --upgrade docker-compose
+    - npm run setup
+
+test:
+  override:
+    - npm test
+
+deployment:
+  staging:
+    branch: master
+    commands:
+      - docker build -t registry.repositive.io:5000/lizbot .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS registry.repositive.io:5000
+      - docker push registry.repositive.io:5000/lizbot
+      - rancher --env 1a7 --access-key $ACCESS_STA --secret-key $SECRET_STA export discover-app
+      - rancher-compose -f discover-app/docker-compose.yml --access-key $ACCESS_STA --secret-key $SECRET_STA -p discover-app up --force-upgrade -c -d lizbot
+
+  release:
+    tag: /.*/
+    commands:
+      - docker build -t registry.repositive.io:5000/lizbot:$CIRCLE_TAG .
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS registry.repositive.io:5000
+      - docker push registry.repositive.io:5000/lizbot:$CIRCLE_TAG

@@ -1,0 +1,44 @@
+version: '3'
+services:
+  lizbot:
+    image: "registry.repositive.io:5000/lizbot:${TAG}"
+    # volumes:
+    #  - /mnt/dm_certs:/certs
+    #  - /repositive_configs:/.docker
+    # environment:
+      # DOCKER_TLS_VERIFY: "1"
+      # DOCKER_HOST: "tcp://54.208.112.22:2376"
+      # DOCKER_CERT_PATH: "/certs"
+      # DOCKER_CONFIG: /.docker
+      # AUTH_USER: 'reposibot'
+      # AUTH_PASS: 'uh434m832'
+    networks:
+      - traefik
+    deploy:
+      replicas: 1
+      resources:
+        limit:
+          memory: 200M
+          cpus: '0.3'
+        reservations:
+          memory: 100M
+          cpus: '0.1'
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        window: 30s
+      labels:
+        - "traefik.backend=lizbot"
+        - "traefik.frontend.rule=Host:lizbot-staging.repositive.io"
+        - "traefik.docker.network=systems_traefik"
+        - "traefik.port=7777"
+      placement:
+        constraints:
+          - node.labels.functional==true
+networks:
+  traefik:
+    external:
+      name: systems_traefik

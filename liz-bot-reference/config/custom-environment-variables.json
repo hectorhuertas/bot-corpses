@@ -1,0 +1,12 @@
+{
+  "token": "SLACK_TOKEN",
+  "channels": "SLACK_CHANNELS",
+  "vault": {
+    "transport": "VAULT_TRANSPORT",
+    "client": {
+      "type": "VAULT_TYPE",
+      "host": "VAULT_HOST",
+      "port": "VAULT_PORT"
+    }
+  }
+}

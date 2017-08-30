@@ -1,0 +1,12 @@
+{
+  "token": "xoxb-195989334759-M1KwzHPToNklJbqEGvywsbsf",
+  "channels": "tests",
+  "vault": {
+    "transport": "transport",
+    "client": {
+      "type": "http",
+      "host": "vault",
+      "port": "10101"
+    }
+  }
+}
